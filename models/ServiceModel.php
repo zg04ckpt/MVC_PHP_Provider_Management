@@ -90,7 +90,7 @@ class ServiceModel extends BaseModel {
                 p.id AS provider_id,
                 p.name AS provider_name
             FROM services s
-            LEFT JOIN provide_services ps ON s.id = ps.service_id AND ps.contract_id IS NOT null
+            LEFT JOIN provide_services ps ON s.id = ps.service_id
             LEFT JOIN providers p ON p.id = ps.provider_id 
             WHERE s.id = ?
         ");

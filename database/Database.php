@@ -3,7 +3,7 @@
 class Database {
     private $host = 'localhost';
     private $port = 3306;
-    private $db_name = 'bt3php';
+    private $db_name = 'bt3php1';
     private $username = 'root';
     private $password = 'admin';
     private $conn;

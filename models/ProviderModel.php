@@ -84,7 +84,9 @@ class ProviderModel extends BaseModel {
             }
             // Xóa
             $logo_url = preg_replace('@^/@', '', $provider['logo_url']);
-            unlink($logo_url);
+            if (file_exists($logo_url)) {
+                unlink($logo_url);
+            }
         }
 
         // Xử lý file banner (nếu có upload mới)
@@ -101,7 +103,9 @@ class ProviderModel extends BaseModel {
             }
             // Xóa
             $banner_url = preg_replace('@^/@', '', $provider['banner_url']);
-            unlink($banner_url);
+            if (file_exists($banner_url)) {
+                unlink($banner_url);
+            }
         }
 
         // Chuẩn bị câu lệnh SQL động để cập nhật providers
@@ -195,7 +199,7 @@ class ProviderModel extends BaseModel {
                 s.unit as unit
             FROM provide_services ps
             JOIN services s ON s.id = ps.service_id
-            WHERE ps.provider_id = ? AND s.status = 'unsigned'
+            WHERE ps.provider_id = ?
         ");
         $stmt->execute([$providerId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

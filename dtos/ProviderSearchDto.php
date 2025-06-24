@@ -12,7 +12,11 @@ class ProviderSearchDto extends BaseDto {
     public function __construct(array $data) {
         $this->key = $this->validateOptional($data, 'key');
         $this->serviceId = isset($data['serviceId']) ? (int)$data['serviceId'] : null;
-        $this->status = ProviderStatus::tryFrom($this->validateOptional($data, 'status'));
+
+        $statusValue = $this->validateOptional($data, 'status');
+        if (isset($statusValue))
+            $this->status = ProviderStatus::tryFrom($statusValue);
+        
         $this->page = isset($data['page']) && $data['page'] > 0 ? (int)$data['page'] : 1;
         $this->size = isset($data['size']) && $data['size'] > 0 ? (int)$data['size'] : 10;
     }

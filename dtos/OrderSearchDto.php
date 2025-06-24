@@ -13,7 +13,11 @@ class OrderSearchDto extends BaseDto {
     public function __construct(array $data) {
         $this->id = $this->validateOptional($data, 'id');
         $this->service_id = $this->validateOptional($data, 'service_id');
-        $this->status = OrderStatus::tryFrom($this->validateOptional($data, 'status'));
+
+        $statusValue = $this->validateOptional($data, 'status');
+        if (isset($statusValue))
+            $this->status = OrderStatus::tryFrom($statusValue);
+
         $this->page = isset($data['page']) && $data['page'] > 0 ? (int)$data['page'] : 1;
         $this->size = isset($data['size']) && $data['size'] > 0 ? (int)$data['size'] : 10;
     }
